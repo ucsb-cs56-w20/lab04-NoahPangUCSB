@@ -163,4 +163,150 @@ public class RationalTest {
         assertEquals("1", r.toString());
     }
 
+    @Test
+    public void test_lcm_of_5_15() {
+        int r = Rational.lcm(5, 15);
+        assertEquals(15, r);
+    }
+
+    @Test
+    public void test_lcm_of_neg7_neg6() {
+        int r = Rational.lcm(-7, -6);
+        assertEquals(42, r);
+    }
+
+    @Test
+    public void test_lcm_of_neg_3_15() {
+        int r = Rational.lcm(-3, 15);
+        assertEquals(15, r);
+    }
+
+    @Test
+    public void test_plus_r_5_15_and_r_3_7() {
+        Rational r = r_5_15.plus(r_3_7);
+        assertEquals("16/21", r.toString());
+    }
+
+    @Test
+    public void test_plus_r_20_25_and_r_13_4() {
+        Rational r = r_20_25.plus(r_13_4);
+        assertEquals("81/20", r.toString());
+    }
+
+    @Test
+    public void test_plus_r_5_15_and_1() {
+        Rational x = new Rational(1, 1);
+        Rational r = r_5_15.plus(x);
+        assertEquals("4/3", r.toString());
+    }
+
+    @Test
+    public void test_sum_r_5_15_and_r_3_7() {
+        Rational r = Rational.sum(r_5_15, r_3_7);
+        assertEquals("16/21", r.toString());
+    }
+
+    @Test
+    public void test_sum_r_20_25_and_neg_r_13_4() {
+        Rational neg_r_13_4 = new Rational(-13, 4);
+        Rational r = r_20_25.plus(neg_r_13_4);
+        assertEquals("-49/20", r.toString());
+    }
+
+    @Test
+    public void test_sum_r_5_15_and_r_0_1() {
+        Rational r = Rational.sum(r_5_15, r_0_1);
+        assertEquals("1/3", r.toString());
+    }
+
+    @Test
+    public void test_minus_r_20_25_and_r_13_4() {
+        Rational r = r_20_25.minus(r_13_4);
+        assertEquals("-49/20", r.toString());
+    }
+
+    @Test
+    public void test_minus_r_5_15_and_r_5_15() {
+        Rational r = r_5_15.minus(r_5_15);
+        assertEquals("0", r.toString());
+    }
+
+    @Test
+    public void test_minus_r_3_7_and_neg_20_25() {
+        Rational x = new Rational(-20, 25);
+        Rational r = r_3_7.minus(x);
+        assertEquals("43/35", r.toString());
+    }
+
+    @Test
+    public void test_diff_r_20_25_and_r_13_4() {
+        Rational r = Rational.difference(r_20_25, r_13_4);
+        assertEquals("-49/20", r.toString());
+    }
+
+    @Test
+    public void test_diff_r_5_15_and_r_5_15() {
+        Rational r = Rational.difference(r_5_15, r_5_15);
+        assertEquals("0", r.toString());
+    }
+
+    @Test
+    public void test_diff_r_3_7_and_neg_20_25() {
+        Rational x = new Rational(-20, 25);
+        Rational r = Rational.difference(r_3_7, x);
+        assertEquals("43/35", r.toString());
+    }
+
+    @Test
+    public void test_recip_r_3_7() {
+        Rational r = r_3_7.reciprocalOf();
+        assertEquals("7/3", r.toString());
+    }
+
+    @Test
+    public void test_recip_neg_r_3_7() {
+        Rational x = new Rational(-3, 7);
+        Rational r = x.reciprocalOf();
+        assertEquals("-7/3", r.toString());
+    }
+
+    @Test(expected = ArithmeticException.class)
+    public void test_recip_neg_r_0_1() {
+        Rational r = r_0_1.reciprocalOf();
+    }
+
+    @Test
+    public void test_divide_r_3_7_and_r_20_25() {
+        Rational r = r_3_7.dividedBy(r_20_25);
+        assertEquals("15/28", r.toString());
+    }
+
+    @Test
+    public void test_divide_r_3_7_and_r_3_7() {
+        Rational r = r_3_7.dividedBy(r_3_7);
+        assertEquals("1", r.toString());
+    }
+
+    @Test(expected = ArithmeticException.class)
+    public void test_divide_r_3_7_and_r_0_1() {
+        Rational r = r_3_7.dividedBy(r_0_1);
+    }
+
+    @Test
+    public void test_quotient_r_3_7_and_r_20_25() {
+        Rational r = Rational.quotient(r_3_7, r_20_25);
+        assertEquals("15/28", r.toString());
+    }
+
+    @Test
+    public void test_quotient_r_3_7_and_r_3_7() {
+        Rational r = Rational.quotient(r_3_7, r_3_7);
+        assertEquals("1", r.toString());
+    }
+
+    @Test(expected = ArithmeticException.class)
+    public void test_quotient_r_3_7_and_r_0_1() {
+        Rational r = Rational.quotient(r_3_7, r_0_1);
+    }
+
 }
