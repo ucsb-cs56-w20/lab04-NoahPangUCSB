@@ -2,9 +2,8 @@ package edu.ucsb.cs56.ratcalc.model;
 
 /**
  * A class to represent a rational number with a numerator and denominator
- *
+ * 
  * @author P. Conrad for CS56 F16
- *
  */
 
 public class Rational {
@@ -14,7 +13,7 @@ public class Rational {
 
     /**
      * greatest common divisor of a and b
-     *
+     * 
      * @param a first number
      * @param b second number
      * @return gcd of a and b
@@ -44,11 +43,18 @@ public class Rational {
             this.num /= gcd;
             this.denom /= gcd;
         }
+        if (this.num > 0 && this.denom < 0) {
+            this.num = -1 * this.num;
+            this.denom = -1 * this.denom;
+        }
+
     }
 
     public String toString() {
         if (denom == 1 || num == 0)
             return "" + num;
+        // System.out.println(num);
+        // System.out.println(denom);
         return num + "/" + denom;
     }
 
@@ -68,20 +74,51 @@ public class Rational {
         return new Rational(a.num * b.num, a.denom * b.denom);
     }
 
+    public static int lcm(int a, int b) {
+        return Math.abs((a * b) / (Rational.gcd(a, b)));
+    }
+
+    public Rational plus(Rational r) {
+        int temp_lcm = lcm(this.denom, r.denom);
+        int new_num_1 = (temp_lcm / this.denom) * this.num;
+        int new_num_2 = (temp_lcm / r.denom) * r.num;
+
+        return new Rational(new_num_1 + new_num_2, temp_lcm);
+    }
+
     public static Rational sum(Rational a, Rational b) {
-        return new Rational(); // stub
+        return a.plus(b);
+    }
+
+    public Rational minus(Rational r) {
+        int temp_lcm = lcm(this.denom, r.denom);
+        int new_num_1 = (temp_lcm / this.denom) * this.num;
+        int new_num_2 = -1 * (temp_lcm / r.denom) * r.num;
+
+        return new Rational(new_num_1 + new_num_2, temp_lcm);
     }
 
     public static Rational difference(Rational a, Rational b) {
-        return new Rational(); // stub
+        return a.minus(b);
+    }
+
+    public Rational reciprocalOf() {
+        if (this.num == 0)
+            throw new ArithmeticException("numerator cannot be zero");
+        return new Rational(this.denom, this.num);
+    }
+
+    public Rational dividedBy(Rational r) {
+        return this.times(r.reciprocalOf());
     }
 
     public static Rational quotient(Rational a, Rational b) {
-        return new Rational(); // stub
+        return a.dividedBy(b);
     }
+
     /**
      * For testing getters.
-     *
+     * 
      * @param args unused
      */
 
